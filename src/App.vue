@@ -1,4 +1,5 @@
 <template>
+<!-- Vue2中的html模板中必须要有一对根标签，Vue3组件的html模板中可以没有根标签 -->
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
