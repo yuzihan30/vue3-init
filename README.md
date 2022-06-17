@@ -1,7 +1,5 @@
 # vue3-init
 
-@[TOC](目录)
-
 ## 基于 vue-cli 创建 vue3+TS 项目步骤
 
 1. npm install -g @vue/cli
