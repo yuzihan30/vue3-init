@@ -1,49 +1,44 @@
 <template>
-  <h2>toRaw和markRaw</h2>
+  <h2>toRef的使用和特点</h2>
   <h3>state: {{ state }}</h3>
+  <h3>age: {{ age }}</h3>
+  <h3>money: {{ money }}</h3>
   <hr />
-  <button @click="testToRaw">测试toRaw</button>
-  <button @click="testMarkRaw">测试markRaw</button>
+  <button @click="update">更新数据</button>
+  <hr />
+  <child-a :age="age" />
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRaw, markRaw } from "vue";
-interface UserInfo {
-  name: string;
-  age: number;
-  likes?: string[];
-}
+import { defineComponent, reactive, toRef, ref } from "vue";
+import ChildA from "./components/Child.vue";
 export default defineComponent({
   name: "App",
+  components: {
+    ChildA,
+  },
   setup() {
-    const state = reactive<UserInfo>({
-      name: "明月",
-      age: 20,
+    const state = reactive({
+      age: 30,
+      money: 100,
     });
-    const testToRaw = () => {
-      // 把代理对象变成普通对象， 数据变化，界面不不变化
-      const user = toRaw(state);
-      user.name += "==";
-      console.log("testToRaw");
-    };
-    const testMarkRaw = () => {
-      // state.likes = ["吃", "喝"];
-      // state.likes[0] += "==";
-      // console.log("testMarkRaw");
-      // console.log(state)
-      const likes = ["吃", "喝"];
-      state.likes = markRaw(likes);
-      setInterval(() => {
-        if (state.likes) {
-          // markRaw标记的对象数据，从此以后都不能再成为代理对象了
-          state.likes[0] += "==";
-          console.log("定时器在运行");
-        }
-      }, 1000);
+    // 把响应式数据state对象中的某个属性age变成ref对象了
+    const age = toRef(state, "age");
+    // 把响应式数据state对象中的某个属性使用ref进行包装， 变成了一个ref对象
+    const money = ref(state.money);
+    console.log(age);
+    console.log(money);
+    const update = () => {
+      // 更新数据的
+      // console.log("测试");
+      // state.age += 10
+      age.value += 20;
+      // money.value += 30; // money拷贝了一份，和state里面的money不再关联
     };
     return {
       state,
-      testToRaw,
-      testMarkRaw,
+      age,
+      money,
+      update,
     };
   },
 });

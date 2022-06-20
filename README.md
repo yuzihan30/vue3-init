@@ -363,6 +363,12 @@ onRenderTriggered
     - 有些值不应被设置为响应式的，例如复杂的第三方类实例或 Vue 组件对象。
     - 当渲染具有不可变数据源的大列表时，跳过代理转换可以提高性能。
 
+4. toRef
+
+- 为源响应式对象上的某个属性创建一个 ref 对象, 二者内部操作的是同一个数据值, 更新时二者是同步的
+- 区别 ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响
+- 应用: 当要将 某个 prop 的 ref 传递给复合函数时，toRef 很有用
+
 ## 参考资料
 
 - [vue3 学习 B 站视频](https://www.bilibili.com/video/BV1ra4y1H7ih?p=45&spm_id_from=pageDriver&vd_source=7ee5c96f1a1e60cce40c476ea01fa301)
