@@ -1,45 +1,33 @@
 <template>
-  <h2>toRef的使用和特点</h2>
-  <h3>state: {{ state }}</h3>
-  <h3>age: {{ age }}</h3>
-  <h3>money: {{ money }}</h3>
-  <hr />
-  <button @click="update">更新数据</button>
-  <hr />
-  <child-a :age="age" />
+  <h2>响应式数据的判断</h2>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRef, ref } from "vue";
-import ChildA from "./components/Child.vue";
+import {
+  defineComponent,
+  isRef,
+  reactive,
+  ref,
+  isReactive,
+  isProxy,
+  readonly,
+  isReadonly,
+} from "vue";
 export default defineComponent({
   name: "App",
-  components: {
-    ChildA,
-  },
+  // - isRef: 检查一个值是否为一个 ref 对象
+  // - isReactive: 检查一个对象是否是由 reactive 创建的响应式代理
+  // - isReadonly: 检查一个对象是否是由 readonly 创建的只读代理
+  // - isProxy: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理
   setup() {
-    const state = reactive({
-      age: 30,
-      money: 100,
-    });
-    // 把响应式数据state对象中的某个属性age变成ref对象了
-    const age = toRef(state, "age");
-    // 把响应式数据state对象中的某个属性使用ref进行包装， 变成了一个ref对象
-    const money = ref(state.money);
-    console.log(age);
-    console.log(money);
-    const update = () => {
-      // 更新数据的
-      // console.log("测试");
-      // state.age += 10
-      age.value += 20;
-      // money.value += 30; // money拷贝了一份，和state里面的money不再关联
-    };
-    return {
-      state,
-      age,
-      money,
-      update,
-    };
+    // - isRef: 检查一个值是否为一个 ref 对象
+    console.log(isRef(ref({})));
+    // - isReactive: 检查一个对象是否是由 reactive 创建的响应式代理
+    console.log(isReactive(reactive({})));
+    // isReadonly: 检查一个对象是否是由 readonly 创建的只读代理
+    console.log(isReadonly(readonly({})));
+    // - isProxy: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理
+    console.log(isProxy(readonly({})));
+    console.log(isProxy(reactive({})));
   },
 });
 </script>

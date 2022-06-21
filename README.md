@@ -369,6 +369,23 @@ onRenderTriggered
 - 区别 ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响
 - 应用: 当要将 某个 prop 的 ref 传递给复合函数时，toRef 很有用
 
+5. customRef
+
+- 创建一个自定义的 ref，并对其依赖项跟踪和更新触发进行显式控制
+- 需求: 使用 customRef 实现 debounce 的示例
+
+6.  provide 与 inject
+
+- provide 和 inject 提供依赖注入，功能类似 2.x 的 provide/inject
+- 实现跨层级组件(祖孙)间通信
+
+7. 响应式数据的判断
+
+- isRef: 检查一个值是否为一个 ref 对象
+- isReactive: 检查一个对象是否是由 reactive 创建的响应式代理
+- isReadonly: 检查一个对象是否是由 readonly 创建的只读代理
+- isProxy: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理
+
 ## 参考资料
 
 - [vue3 学习 B 站视频](https://www.bilibili.com/video/BV1ra4y1H7ih?p=45&spm_id_from=pageDriver&vd_source=7ee5c96f1a1e60cce40c476ea01fa301)
