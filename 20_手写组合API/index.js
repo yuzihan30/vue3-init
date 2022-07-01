@@ -110,3 +110,37 @@ function readonly(target) {
   // 如果传入的数据是基本类型的数据，那么就直接返回
   return target;
 }
+
+// #######################################
+// 定义一个shallowRef函数
+// 之前都是返回代理对象，这里是返回对象
+function shallowRef(target) {
+  return {
+    // 保存target数据
+    _target: target,
+    get value() {
+      console.log("劫持到了读取数据");
+      return this._target;
+    },
+    set value(val) {
+      console.log("劫持到了修改数据", val);
+      this._target = val;
+    },
+  };
+}
+// 定义一个ref函数, 传入对象的话要通过reactive处理
+function ref(target) {
+  target = reactive(target);
+  return {
+    // 保存target数据
+    _target: target,
+    get value() {
+      console.log("劫持到了读取数据");
+      return this._target;
+    },
+    set value(val) {
+      console.log("劫持到了修改数据", val);
+      this._target = val;
+    },
+  };
+}
