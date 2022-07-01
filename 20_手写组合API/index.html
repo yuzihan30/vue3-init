@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星月不负赶路人</title>
+  </head>
+  <body>
+    <script src="./index.js"></script>
+    <script type="text/javascript">
+      const proxyUser1 = shallowReactive({
+        name: "明月",
+        car: {
+          color: "white",
+        },
+      });
+      // 拦截到了写的数据
+      // proxyUser1.name = "明星";
+      // 拦截到了读和写的数据
+      // proxyUser1.name += "==";
+      // 拦截到了读取数据，但是拦截不到写数据
+      // proxyUser1.car.color += "==";
+      // 拦截到了删除数据
+      // delete proxyUser1.name;
+      // 只拦截到了读，但是拦截不到删除
+      //  delete proxyUser1.car.color;
+      const proxyUser2 = reactive({
+        name: "明月",
+        car: {
+          color: "white",
+        },
+      });
+      // 拦截到了写的数据
+      // proxyUser2.name = "明星";
+      // 拦截到了读和写的数据
+      // proxyUser2.name += "==";
+      // 拦截到了读取数据和写数据
+      // proxyUser2.car.color = "==";
+      // 拦截到了删除数据
+      // delete proxyUser2.name;
+      // 拦截到了读和拦截到了删除
+      delete proxyUser2.car.color;
+    </script>
+  </body>
+</html>
