@@ -93,6 +93,13 @@
       // ref2.value = "aa";
       // 劫持到
       // ref2.value.car = "bb";
+
+      // ######################
+      console.log(isRef(ref({})));
+      console.log(isReactive(reactive({})));
+      console.log(isReadonly(readonly({})));
+      console.log(isProxy(reactive({})));
+      console.log(isProxy(readonly({})));
     </script>
   </body>
 </html>

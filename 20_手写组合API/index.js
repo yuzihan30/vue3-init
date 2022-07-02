@@ -4,6 +4,7 @@
 const reactiveHandler = {
   //获取属性值
   get(target, prop) {
+    if (prop === "_is_reactive") return true;
     const result = Reflect.get(target, prop);
     console.log("拦截了读取数据", prop, result);
     return result;
@@ -60,6 +61,7 @@ function reactive(target) {
 const readonlyHandler = {
   //获取属性值
   get(target, prop) {
+    if (prop === "_is_readonly") return true;
     const result = Reflect.get(target, prop);
     console.log("拦截了读取数据", prop, result);
     return result;
@@ -132,6 +134,7 @@ function shallowRef(target) {
 function ref(target) {
   target = reactive(target);
   return {
+    _is_ref: true, // 标识当前的对象时ref对象
     // 保存target数据
     _target: target,
     get value() {
@@ -143,4 +146,21 @@ function ref(target) {
       this._target = val;
     },
   };
+}
+// #####################################
+// 定义一个函数isRef, 判断当前的对象是不是ref对象
+function isRef(obj) {
+  return obj && obj._is_ref;
+}
+// 定义一个函数isReactive, 判断当前的对象是不是reactive对象
+function isReactive(obj) {
+  return obj && obj._is_reactive;
+}
+// 定义一个函数isReadonly, 判断当前的对象是不是readonly对象
+function isReadonly(obj) {
+  return obj && obj._is_readonly;
+}
+// 定义一个函数isProxy, 判断当前的对象是不是reactive或者readonly对象
+function isProxy(obj) {
+  return isReactive(obj) || isReadonly(obj);
 }
